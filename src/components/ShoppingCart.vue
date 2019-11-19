@@ -1,5 +1,6 @@
 <template>
   <div>
+    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
     <van-card
       v-for="item in carinfo"
       :key="item.id"
@@ -17,8 +18,10 @@
         />
       </div>
     </van-card>
+    </van-pull-refresh>
     <!-- $store.getters.gettotalprice -->
-    <van-submit-bar :price="gettotal" button-text="提交订单" @submit="onSubmit"  />
+    <van-submit-bar :price="gettotal" button-text="提交订单" @submit="onSubmit" />
+    
   </div>
 </template>
 
@@ -28,12 +31,20 @@ export default {
   data() {
     return {
       carinfo: [],
+      isLoading:false
     };
   },
   created() {
     this.getcarinfo();
   },
   methods: {
+    onRefresh() {
+      setTimeout(() => {
+        this.$toast('刷新成功');
+        this.isLoading = false;
+        this.count++;
+      }, 500);
+    },
     // 获取购物车数据
     async getcarinfo() {
       // 从本地获取id拼接

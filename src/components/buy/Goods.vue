@@ -1,5 +1,6 @@
 <template>
   <div class="news-list">
+    <van-loading v-if="isend" type="spinner" color="#1989fa" />
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh" class="header_box">
       <div class="news-item" v-for="item in newsList" :key="item.id" @click="golist(item.id)">
         <div class="Imgs">
@@ -22,8 +23,9 @@ export default {
   data() {
     return {
       count: 0,
-      isLoading: false,
-      newsList: []
+      isLoading: true,
+      newsList: [],
+      isend: true
     };
   },
   created() {
@@ -37,10 +39,17 @@ export default {
         this.isLoading = false;
       }, 500);
     },
-    async getNewsList() {
-      const { data: res } = await this.$http.get("getNewsList");
-      this.newsList = res.message;
-      console.log(this.newsList);
+    getNewsList() {
+      setTimeout(async () => {
+        const { data: res } = await this.$http.get("getNewsList");
+        this.newsList = res.message;
+        console.log(this.newsList);
+        this.isend = false
+        if (this.isLoading) {
+          this.$toast("刷新成功");
+          this.isLoading = false;
+        }
+      },1000);
     },
     golist(id) {
       this.$router.push({
@@ -52,6 +61,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.van-loading{
+  text-align: center;
+}
 .news-list {
   .news-item {
     display: flex;

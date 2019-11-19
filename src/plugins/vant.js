@@ -5,6 +5,7 @@ import {
     CellGroup,
     Swipe,
     SwipeItem,
+    SwipeCell ,
     Grid,
     GridItem,
     Icon,
@@ -23,11 +24,11 @@ import {
     SubmitBar,
     Tab,
     Tabs,
-    ImagePreview  
+    ImagePreview,
+    Divider,
+    CountDown,
+    Loading 
 } from 'vant'
-
-
-
 
 
 
@@ -55,3 +56,7 @@ Vue.use(SubmitBar)
 Vue.use(Tab)
 Vue.use(Tabs)
 Vue.use(ImagePreview)
+Vue.use(Divider)
+Vue.use(SwipeCell )
+Vue.use(CountDown)
+Vue.use(Loading)

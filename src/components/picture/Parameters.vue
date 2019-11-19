@@ -29,12 +29,10 @@ export default {
 };
 </script>
 
-<style lang="less" >
+<style lang="less" scoped>
 h4 {
   color: blue;
 }
 
-img{
-   max-width: 375px!important;
-}
+
 </style>

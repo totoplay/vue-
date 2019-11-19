@@ -17,7 +17,7 @@
         </van-cell>
       </van-cell-group>
       <br />
-      <van-button type="info">发表评论</van-button>
+      <van-button type="info" @click="submitComments()">发表评论</van-button>
 
       <!-- 评论 -->
       <div>
@@ -57,23 +57,30 @@ export default {
   methods: {
       async getComments(id) {
       const { data: res } = await this.$http.get(
-        `getcomments/${this.$route.params.id}?pageindex=${this.pageindex}`
+        `getcomments/${this.$route.params.id}?pageindex=1`
       );
-      this.commentsList = res.message.concat(this.commentsList);
+      this.commentsList =res.message
       console.log(this.commentsList);
     },
     // 提交评论
-    async submitComments(id) {
+    async submitComments() {
+      if(this.addForm.content.trim() == '') return this.$toast('留言不能为空')
       const { data: res } = await this.$http.post(
         `postcomment/${this.$route.params.id}`,
         this.addForm
       );
+      this.$toast('评论成功');
       this.addForm.content = "";
       this.getComments();
     },
-    addcommentsList(){
+    // 加载更多
+  async  addcommentsList(){
        this.pageindex += 1;
-        this.getComments();
+         const { data: res } = await this.$http.get(
+        `getcomments/${this.$route.params.id}?pageindex=${this.pageindex}`
+      );
+
+        this.commentsList = this.commentsList.concat(res.message);
     }
   
   },
@@ -122,6 +129,7 @@ export default {
   background-color: #eee;
 }
 .cmt-item-body {
+  overflow-wrap: break-word;
   line-height: 30px;
   text-indent: 2em;
 }

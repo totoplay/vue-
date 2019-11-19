@@ -28,7 +28,7 @@
           <van-stepper v-model="count" min="1" :max="goodsinfo.stock_quantity" integer />
         </div>
         <div class="goods_info">
-          <van-button size="small" type="primary">立即购买</van-button>
+          <van-button size="small" type="info" class="btn3">立即购买</van-button>
           <van-button size="small" type="danger" @click="saveGoods">加入购物车</van-button>
         </div>
       </div>
@@ -38,9 +38,9 @@
     <div class="card">
       <div class="card-header">商品参数</div>
       <div class="card-body">
-        <p class="info-txt">商品货号：{{ goodsinfo.goods_no }}</p>
-        <p class="info-txt">库存情况：{{ goodsinfo.stock_quantity }}</p>
-        <p class="info-txt">上架时间：{{ goodsinfo.add_time | dateFormat}}</p>
+        <p class="info-txt">商品货号:{{ goodsinfo.goods_no }}</p>
+        <p class="info-txt">库存情况:{{ goodsinfo.stock_quantity }}件</p>
+        <p class="info-txt">上架时间:{{ goodsinfo.add_time | dateFormat}}</p>
       </div>
     </div>
 
@@ -136,36 +136,43 @@ export default {
 <style lang="less" scoped>
 .card {
   box-shadow: 0 1px 1px #aaa;
-  border-radius: 2px;
-  margin: 8px;
+  border-radius: 3px;
+  margin-top: 10px;
   background-color: #fff;
-  padding: 3px;
+  padding: 15px;
+  border: 1px solid #ccc;
 }
 .card-header {
   border-bottom: 1px solid #eee;
   padding: 12px 10px;
   font-size: 16px;
 }
+
 .card-body {
   padding: 12px 10px;
 }
 .info-txt {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 30px;
   color: gray;
 }
-
 .swiper-container {
   height: 230px;
   border: 1px solid #ccc;
   border-radius: 3px;
   img {
-    margin: 0 86px;
+	margin:auto;
+    // margin: 0 86px;
+    display: block;
     width: 200px;
     height: 230px;
   }
 }
+.btn3{
+  margin-right:10px;
+}
 .goodsinfo-container {
+  padding: 10px;
   overflow: hidden;
 }
 .goods_info {
@@ -180,7 +187,7 @@ export default {
 .now-price {
   color: red;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 16px;
 }
 .count-box {
   display: flex;

@@ -5,16 +5,26 @@
         <i>
           <van-icon name="arrow-left" />
         </i>
-        <span >返回</span>
+        <span>返回</span>
       </div>黑马程序员.vant
     </div>
+
+
     <!-- 路由占位符 -->
+    <transition name="fade"  mode="out-in">
       <router-view />
+    </transition>
+
+
 
     <van-tabbar v-model="active">
       <van-tabbar-item icon="wap-home" @click="$router.push('/login')">首页</van-tabbar-item>
-      <van-tabbar-item icon="manager"  @click="$router.push('/member')">会员</van-tabbar-item>
-      <van-tabbar-item icon="shopping-cart"  @click="$router.push('/shoppingcart')" :info="$store.getters.getcount">购物车</van-tabbar-item>
+      <van-tabbar-item icon="manager" @click="$router.push('/member')">会员</van-tabbar-item>
+      <van-tabbar-item
+        icon="shopping-cart"
+        @click="$router.push('/shoppingcart')"
+        :info="$store.getters.getcount"
+      >购物车</van-tabbar-item>
 
       <van-tabbar-item icon="search" @click="$router.push('/search')">搜索</van-tabbar-item>
     </van-tabbar>
@@ -22,12 +32,12 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from 'vuex'
+import { mapState, mapMutations, mapGetters } from "vuex";
 export default {
   name: "app",
   data() {
     return {
-      flag:false,
+      flag: false,
       active: 0,
       icon: {
         active: "https://img.yzcdn.cn/vant/user-active.png",
@@ -36,22 +46,22 @@ export default {
     };
   },
   created() {
-    this.flag=this.$route.path==='/login'?false:true
+    this.flag = this.$route.path === "/login" ? false : true;
   },
   methods: {
-    goback(){
-      this.$router.go(-1)
+    goback() {
+      this.$router.go(-1);
     }
   },
   watch: {
-    '$route.path':function(newval){
-      if(newval==='/login'){
-        this.flag=false
-      }else{
-        this.flag=true
+    "$route.path": function(newval) {
+      if (newval === "/login") {
+        this.flag = false;
+      } else {
+        this.flag = true;
       }
     }
-  },
+  }
 };
 </script>
 
@@ -72,4 +82,11 @@ export default {
     float: left;
   }
 }
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s ;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
 </style>
